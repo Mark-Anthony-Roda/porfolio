@@ -21,3 +21,11 @@
 .dropdown .dropdown-menu .dropdown-menu {
   @apply top-0;
 }
+
+.dropdown .dropdown-menu-click .dropdown-menu-click {
+  @apply top-0;
+}
+
+.dropdown .dropdown-menu-clicked .dropdown-menu-clicked {
+  @apply top-0;
+}

@@ -1,16 +1,15 @@
 import "@/app/components/Menu/ChildMenu/ChildMenu.css"
 import { ChildMenuProps, DropdownProps, MenuItemProps } from "@/app/interfaces"
 import Link from "next/link"
-import Button from "../../Button/Button"
+import { useState } from "react"
+import { Button } from "../../Buttons"
 
 const COLLAPSECLASS: DropdownProps = {
-  hover: () => {
-    return "dropdown-menu"
+  hover: {
+    active: "dropdown-menu",
+    inactive: "dropdown-menu",
   },
-  click: (clicked?: boolean) => {
-    if (clicked) return "dropdown-menu-clicked"
-    return "dropdown-menu-click"
-  },
+  click: { active: "dropdown-menu-clicked", inactive: "dropdown-menu-click" },
 }
 
 const childPosition = {
@@ -20,11 +19,17 @@ const childPosition = {
 
 export default function ChildMenu(props: ChildMenuProps) {
   const {
+    parentKey,
     items,
     className,
     collapsePosition = "left",
     collapseAction = "hover",
+    activeParent,
   } = props
+
+  const [collapsedMenu, setCollapsedMenu] = useState<
+    string | number | undefined
+  >()
 
   const renderItemHandler = (element: MenuItemProps) => {
     switch (element.type.toLowerCase()) {
@@ -38,8 +43,17 @@ export default function ChildMenu(props: ChildMenuProps) {
       case "button":
         return (
           <Button
+            className=""
             label={element.label}
-            onClick={() => COLLAPSECLASS[collapseAction](true)}
+            onClick={() => {
+              if (collapsedMenu === element.key) {
+                setCollapsedMenu(undefined)
+
+                return
+              }
+
+              setCollapsedMenu(element.key)
+            }}
           />
         )
 
@@ -50,9 +64,11 @@ export default function ChildMenu(props: ChildMenuProps) {
 
   return (
     <div
-      className={`${COLLAPSECLASS[
-        collapseAction
-      ]()} absolute top-[130%] bg-white text-black ${className ?? ""}`}
+      className={`${
+        activeParent === parentKey
+          ? COLLAPSECLASS[collapseAction].active
+          : COLLAPSECLASS[collapseAction].inactive
+      } absolute top-[130%] bg-white text-black ${className ?? ""}`}
     >
       {items.map((elem: MenuItemProps, index: number) => {
         return (
@@ -62,16 +78,19 @@ export default function ChildMenu(props: ChildMenuProps) {
             }`}
             key={index}
           >
-            {/* {renderItemHandler(elem)} */}
-            <Link href={elem.url}>
+            {renderItemHandler(elem)}
+            {/* <Link href={elem.url}>
               <span>{elem.label}</span>
-            </Link>
+            </Link> */}
             {elem.children ? (
               <ChildMenu
+                parentKey={elem.key}
+                activeParent={collapsedMenu}
                 items={elem.children}
                 className={`${childPosition[collapsePosition]} ${
                   className ?? ""
                 }`}
+                collapseAction={collapseAction}
                 collapsePosition={collapsePosition}
               />
             ) : null}

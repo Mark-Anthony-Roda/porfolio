@@ -3,28 +3,32 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useState } from "react"
 import ChildMenu from "./ChildMenu/ChildMenu"
-import Button from "../Button/Button"
+import { Button } from "../Buttons"
 
 const COLLAPSECLASS: DropdownProps = {
-  hover: () => {
-    return "dropdown-menu"
+  hover: {
+    active: "dropdown-menu",
+    inactive: "dropdown-menu",
   },
-  click: (clicked?: boolean) => {
-    if (clicked) return "dropdown-menu-clicked"
-    return "dropdown-menu-click"
-  },
+  click: { active: "dropdown-menu-clicked", inactive: "dropdown-menu-click" },
 }
+
 export default function Menu(props: MenuProps) {
   const {
     activeKey,
     items,
-    className,
+    wrapperClassName,
+    menuClassName,
     childClassName,
     collapsePosition,
     collapseAction = "hover",
   } = props
 
   const pathname = usePathname()
+
+  const [collapsedMenu, setCollapsedMenu] = useState<
+    string | number | undefined
+  >()
 
   const pathKey = items.find(
     (item: MenuItemProps) => item.url === pathname
@@ -37,16 +41,27 @@ export default function Menu(props: MenuProps) {
     switch (element.type.toLowerCase()) {
       case "link":
         return (
-          <Link href={element.url}>
-            <span>{element.label}</span>
-          </Link>
+          <>
+            {element.icon}
+            <Link href={element.url}>
+              <span>{element.label}</span>
+            </Link>
+          </>
         )
 
       case "button":
         return (
           <Button
             label={element.label}
-            onClick={() => COLLAPSECLASS[collapseAction](true)}
+            onClick={() => {
+              if (collapsedMenu === element.key) {
+                setCollapsedMenu(undefined)
+
+                return
+              }
+
+              setCollapsedMenu(element.key)
+            }}
           />
         )
 
@@ -56,35 +71,31 @@ export default function Menu(props: MenuProps) {
   }
 
   return (
-    <div className={className ?? "flex gap-3 text-white"}>
+    <div className={wrapperClassName ?? "flex gap-3 text-white"}>
       {items.map((item: MenuItemProps, index) => {
+        const useClassname = menuClassName ?? item.className ?? null
+        const activeClass = useClassname?.replaceAll("hover:", "")
+
         return (
           <div
             key={index}
             className={`relative dropdown ${
+              menuClassName ??
               item.className ??
               "hover:opacity-80 hover:underline hover:underline-offset-8 cursor-pointer"
             } ${
               active === item.key
-                ? "opacity-80 underline underline-offset-8"
+                ? activeClass ?? "opacity-80 underline underline-offset-8"
                 : ""
             }`}
             onClick={() => setActive(item.key)}
           >
-            <Link href={item.url}>
-              <span>{item.label}</span>
-            </Link>
-            {/* <Link
-              href={item.url}
-              // className={`${
-              //   item.className ??
-              //   "hover:opacity-80 hover:underline hover:underline-offset-8 cursor-pointer"
-              // }`}
-            >
-              <span>{item.label}</span>
-            </Link> */}
+            {renderItemHandler(item)}
+
             {item.children ? (
               <ChildMenu
+                activeParent={collapsedMenu}
+                parentKey={item.key}
                 items={item.children}
                 className={childClassName ?? ""}
                 collapsePosition={collapsePosition}

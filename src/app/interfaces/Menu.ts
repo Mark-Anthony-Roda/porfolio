@@ -15,23 +15,27 @@ export interface MenuProps {
   items: MenuItemProps[]
   childClassName?: string
   collapsePosition?: "left" | "right"
-  className?: string
+  wrapperClassName?: string
+  menuClassName?: string
   activeKey?: string | number
   collapseAction?: "hover" | "click"
 }
 
 export interface ChildMenuProps {
   items: MenuItemProps[]
+  parentKey: string | number
+  activeParent?: string | number
   className?: string
   collapsePosition?: "left" | "right"
   collapseAction?: "hover" | "click"
 }
 
-// export interface DropdownTypeProps {
-//   dropdown: Function
-// }
+export interface DropdownTypeProps {
+  active: string
+  inactive: string
+}
 
 export interface DropdownProps {
-  hover: Function
-  click: Function
+  hover: DropdownTypeProps
+  click: DropdownTypeProps
 }
