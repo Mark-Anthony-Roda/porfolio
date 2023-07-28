@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.dropdown-menu {
+  @apply opacity-0 invisible transition-all duration-[ease] delay-[0s] -translate-y-2.5;
+}
+
+.dropdown-menu-click {
+  @apply opacity-0 invisible transition-all duration-[ease] delay-[0s] -translate-y-2.5;
+}
+
+.dropdown-menu-clicked {
+  @apply opacity-100 visible transition-all duration-[ease] delay-[0s] translate-y-0;
+}
+
+.dropdown:hover > .dropdown-menu {
+  @apply opacity-100 visible transition-all duration-[ease] delay-[0s] translate-y-0;
+}
+
+.dropdown .dropdown-menu .dropdown-menu {
+  @apply top-0;
+}
