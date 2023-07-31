@@ -3,7 +3,6 @@
 import Image from "next/image"
 import { HeaderMenu } from "@/app/utils"
 // import { Button } from "../Buttons"
-import { HiUser } from "react-icons/hi"
 import { Button, Menu } from ".."
 
 export default function Header() {
@@ -21,8 +20,8 @@ export default function Header() {
         </a>
         <Menu
           wrapperClassName="flex gap-[4.5rem] text-white items-center w-full justify-center"
-          // menuClassName="py-2 px-4 hover:rounded-t hover:rounded-b-xl hover:bg-[#F04336]"
-          childClassName="py-4"
+          // menuClassName="py-2 px-4 nav-link active:active"
+          // childClassName="nav-link active:active"
           collapseAction="hover"
           items={HeaderMenu}
         />

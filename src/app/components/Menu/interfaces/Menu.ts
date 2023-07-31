@@ -9,7 +9,8 @@ export interface MenuItemProps {
   children?: MenuItemProps[]
   className?: string
   type: "link" | "button"
-  iconPlacement?: 'left' | 'right' | 'top' | 'bottom'
+  iconPlacement?: "left" | "right" | "top" | "bottom"
+  description?: string
 }
 
 export interface MenuProps {
@@ -29,6 +30,7 @@ export interface ChildMenuProps {
   className?: string
   collapsePosition?: "left" | "right"
   collapseAction?: "hover" | "click"
+  
 }
 
 export interface DropdownTypeProps {

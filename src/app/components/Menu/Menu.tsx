@@ -1,15 +1,10 @@
-import {
-  DropdownProps,
-  MenuItemProps,
-  MenuProps,
-  MenuToggleStateProps,
-} from "@/app/interfaces"
-import Link from "next/link"
-import { redirect, usePathname } from "next/navigation"
+
+import { usePathname } from "next/navigation"
 import { useState } from "react"
 import { Button, ChildMenu } from ".."
-import { useMenuToggle } from "@/app/store/menuToggle"
 import { shallow } from "zustand/shallow"
+import { useMenuToggle } from "./store/menuToggle"
+import { MenuItemProps, MenuProps, MenuToggleStateProps } from "./interfaces/Menu"
 
 export default function Menu(props: MenuProps) {
   const {
@@ -22,12 +17,8 @@ export default function Menu(props: MenuProps) {
     collapseAction = "hover",
   } = props
 
-  const [activeMenus, setActiveMenus, clearActiveMenus] = useMenuToggle(
-    (state: MenuToggleStateProps) => [
-      state.activeKeys,
-      state.setState,
-      state.clearState,
-    ],
+  const [setActiveMenus] = useMenuToggle(
+    (state: MenuToggleStateProps) => [state.setState],
     shallow
   )
 
@@ -68,15 +59,7 @@ export default function Menu(props: MenuProps) {
         return (
           <div
             key={index}
-            className={`relative dropdown ${
-              defaultClass ??
-              item.className ??
-              "hover:opacity-80 hover:underline hover:underline-offset-8 cursor-pointer"
-            } ${
-              active === item.key
-                ? activeClass ?? "opacity-80 underline underline-offset-8"
-                : ""
-            }`}
+            className={`relative dropdown`}
             onClick={() => setActive(item.key)}
           >
             <Button
@@ -88,6 +71,16 @@ export default function Menu(props: MenuProps) {
               onClick={() => {
                 setActiveMenus(item.key, true)
               }}
+              className={`${
+                defaultClass ??
+                item.className ??
+                "hover:opacity-80 hover:underline hover:underline-offset-8 cursor-pointer"
+              } ${
+                active === item.key
+                  ? activeClass ?? "opacity-80 underline underline-offset-8"
+                  : ""
+              }`}
+              description={item.description}
             />
 
             {item.children ? (
@@ -95,7 +88,7 @@ export default function Menu(props: MenuProps) {
                 activeParent={active}
                 parentKey={item.key}
                 items={item.children}
-                className={childClassName ?? ""}
+                className={childClassName}
                 collapsePosition={collapsePosition}
                 collapseAction={collapseAction}
               />

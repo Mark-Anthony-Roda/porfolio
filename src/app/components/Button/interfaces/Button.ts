@@ -10,4 +10,5 @@ export interface ButtonProps {
   className?: string
   iconPlacement?: "left" | "right" | "top" | "bottom"
   type?: "button" | "link"
+  description?: string
 }

@@ -1,2 +1,2 @@
-export * from "./Menu"
-export * from "./Button"
+export * from "../components/Menu/Menu"
+export * from "../components/Button/interfaces/Button"

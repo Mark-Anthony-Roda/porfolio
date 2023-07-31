@@ -11,6 +11,7 @@ export default function Button(props: ButtonProps) {
     iconPlacement = "left",
     type = "button",
     href = "#",
+    description,
   } = props
 
   const iconPlacementHandler = () => {
@@ -72,8 +73,10 @@ export default function Button(props: ButtonProps) {
   }
 
   return (
-    <div className={`flex ${className ?? "px-4"}`}>
-      {typeContent()}
-    </div>
+    <Fragment>
+      <div className={`flex ${className}`}>{typeContent()}</div>
+
+      {description && <p className={"px-4 mt-2 text-sm"}>{description}</p>}
+    </Fragment>
   )
 }

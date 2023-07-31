@@ -1,5 +1,5 @@
 import { create } from "zustand"
-import { MenuToggleStateProps } from "../interfaces"
+import { MenuToggleStateProps } from "../interfaces/Menu"
 
 export const useMenuToggle = create<MenuToggleStateProps>()((set) => ({
   activeKeys: [],

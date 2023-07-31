@@ -1,5 +1,5 @@
 import { HiOutlineGlobeAlt } from "react-icons/hi"
-import { MenuItemProps } from "../interfaces"
+import { MenuItemProps } from "../components/Menu/interfaces/Menu"
 
 export const HeaderMenu: MenuItemProps[] = [
   {
