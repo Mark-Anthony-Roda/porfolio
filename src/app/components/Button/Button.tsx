@@ -74,12 +74,6 @@ export default function Button(props: ButtonProps) {
   return (
     <div className={`flex ${className ?? "px-4"}`}>
       {typeContent()}
-      {/* <button
-        onClick={onClick}
-        className={`flex ${iconPlacementHandler()} items-center `}
-      >
-        {buttonContent()}
-      </button> */}
     </div>
   )
 }

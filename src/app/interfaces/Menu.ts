@@ -9,6 +9,7 @@ export interface MenuItemProps {
   children?: MenuItemProps[]
   className?: string
   type: "link" | "button"
+  iconPlacement?: 'left' | 'right' | 'top' | 'bottom'
 }
 
 export interface MenuProps {
@@ -38,4 +39,10 @@ export interface DropdownTypeProps {
 export interface DropdownProps {
   hover: DropdownTypeProps
   click: DropdownTypeProps
+}
+
+export interface MenuToggleStateProps {
+  activeKeys: Array<string | number>
+  clearState: () => void
+  setState: (value: string | number, parentMenu?: boolean) => void
 }

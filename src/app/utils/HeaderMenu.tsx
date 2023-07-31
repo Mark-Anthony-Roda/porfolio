@@ -8,6 +8,7 @@ export const HeaderMenu: MenuItemProps[] = [
     url: "/",
     type: "link",
     // icon: <HiOutlineGlobeAlt />,
+    // iconPlacement: "bottom",
   },
   {
     label: "Plans",
@@ -25,103 +26,11 @@ export const HeaderMenu: MenuItemProps[] = [
     label: "Services",
     key: "services",
     url: "services",
-    type: "button",
+    type: "link",
     children: [
       {
         label: "Solutions",
         key: "solutions-1",
-        url: "/services/solutions",
-        type: "button",
-        children: [
-          {
-            label: "Solutions",
-            key: "solutions-1",
-            url: "/services/solutions",
-            type: "button",
-            children: [
-              {
-                label: "Solutions",
-                key: "solutions",
-                url: "/services/solutions",
-                type: "link",
-              },
-              {
-                label: "Solutions",
-                key: "solutions",
-                url: "/services/solutions",
-                type: "link",
-              },
-              {
-                label: "Solutions",
-                key: "solutions",
-                url: "/services/solutions",
-                type: "link",
-              },
-            ],
-          },
-          {
-            label: "Solutions",
-            key: "solutions-1-2",
-            url: "/services/solutions",
-            type: "link",
-          },
-          {
-            label: "Solutions",
-            key: "solutions-1-3",
-            url: "/services/solutions",
-            type: "link",
-          },
-        ],
-      },
-      {
-        label: "Solutions",
-        key: "solutions-2",
-        url: "/services/solutions",
-        type: "link",
-        children: [
-          {
-            label: "Solutions",
-            key: "solutions-2-1",
-            url: "/services/solutions",
-            type: "button",
-            children: [
-              {
-                label: "Solutions",
-                key: "solutions-2-2",
-                url: "/services/solutions",
-                type: "link",
-              },
-              {
-                label: "Solutions",
-                key: "solutions-2-3",
-                url: "/services/solutions",
-                type: "link",
-              },
-              {
-                label: "Solutions",
-                key: "solutions-2-4",
-                url: "/services/solutions",
-                type: "link",
-              },
-            ],
-          },
-          {
-            label: "Solutions",
-            key: "solutions",
-            url: "/services/solutions",
-            type: "link",
-          },
-          {
-            label: "Solutions",
-            key: "solutions",
-            url: "/services/solutions",
-            type: "link",
-          },
-        ],
-      },
-      {
-        label: "Solutions",
-        key: "solutions-3",
         url: "/services/solutions",
         type: "link",
       },

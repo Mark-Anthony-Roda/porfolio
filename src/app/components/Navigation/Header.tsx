@@ -1,10 +1,10 @@
 "use client"
 
 import Image from "next/image"
-import Menu from "../Menu/Menu"
 import { HeaderMenu } from "@/app/utils"
-import { Button } from "../Buttons"
+// import { Button } from "../Buttons"
 import { HiUser } from "react-icons/hi"
+import { Button, Menu } from ".."
 
 export default function Header() {
   return (
@@ -20,10 +20,10 @@ export default function Header() {
           />
         </a>
         <Menu
-          wrapperClassName="flex gap-20 text-white items-center w-full justify-center"
+          wrapperClassName="flex gap-[4.5rem] text-white items-center w-full justify-center"
           // menuClassName="py-2 px-4 hover:rounded-t hover:rounded-b-xl hover:bg-[#F04336]"
-          childClassName="rounded-md"
-          collapseAction="click"
+          childClassName="py-4"
+          collapseAction="hover"
           items={HeaderMenu}
         />
 
@@ -31,7 +31,7 @@ export default function Header() {
           label="LOGIN"
           // type="link"
           className="outline outline-1 text-white px-[30px] outline-white font-bold hover:text-black hover:bg-white cursor-pointer"
-          icon={<HiUser />}
+          // icon={<HiUser />}
           iconPlacement="left"
         />
       </div>

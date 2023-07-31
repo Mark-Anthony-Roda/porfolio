@@ -1,8 +1,15 @@
 import "@/app/components/Menu/ChildMenu/ChildMenu.css"
-import { ChildMenuProps, DropdownProps, MenuItemProps } from "@/app/interfaces"
+import {
+  ChildMenuProps,
+  DropdownProps,
+  MenuItemProps,
+  MenuToggleStateProps,
+} from "@/app/interfaces"
 import Link from "next/link"
 import { useState } from "react"
-import { Button } from "../../Buttons"
+import { Button } from "../.."
+import { useMenuToggle } from "@/app/store/menuToggle"
+import { shallow } from "zustand/shallow"
 
 const COLLAPSECLASS: DropdownProps = {
   hover: {
@@ -27,9 +34,12 @@ export default function ChildMenu(props: ChildMenuProps) {
     activeParent,
   } = props
 
-  const [collapsedMenu, setCollapsedMenu] = useState<
-    string | number | undefined
-  >()
+  const [activeMenus, setActiveMenus] = useMenuToggle(
+    (state: MenuToggleStateProps) => [state.activeKeys, state.setState],
+    shallow
+  )
+
+  const active = activeMenus.find((key) => key === parentKey)
 
   const renderItemHandler = (element: MenuItemProps) => {
     switch (element.type.toLowerCase()) {
@@ -46,13 +56,7 @@ export default function ChildMenu(props: ChildMenuProps) {
             className=""
             label={element.label}
             onClick={() => {
-              if (collapsedMenu === element.key) {
-                setCollapsedMenu(undefined)
-
-                return
-              }
-
-              setCollapsedMenu(element.key)
+              setActiveMenus(element.key)
             }}
           />
         )
@@ -65,7 +69,7 @@ export default function ChildMenu(props: ChildMenuProps) {
   return (
     <div
       className={`${
-        activeParent === parentKey
+        active
           ? COLLAPSECLASS[collapseAction].active
           : COLLAPSECLASS[collapseAction].inactive
       } absolute top-[130%] bg-white text-black ${className ?? ""}`}
@@ -85,7 +89,7 @@ export default function ChildMenu(props: ChildMenuProps) {
             {elem.children ? (
               <ChildMenu
                 parentKey={elem.key}
-                activeParent={collapsedMenu}
+                activeParent={active}
                 items={elem.children}
                 className={`${childPosition[collapsePosition]} ${
                   className ?? ""
