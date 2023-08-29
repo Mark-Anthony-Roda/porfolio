@@ -1,9 +1,6 @@
 import "./globals.css"
 import type { Metadata } from "next"
-import { Inter } from "next/font/google"
-import { Header } from "./components"
-
-const inter = Inter({ subsets: ["latin"] })
+import { DefaultLayout } from "@/app/component/Layout"
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -17,9 +14,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body suppressHydrationWarning={true} className={inter.className}>
-        <Header />
-        {children}
+      <body className={`relative lg:static`}>
+        <DefaultLayout>{children}</DefaultLayout>
       </body>
     </html>
   )
